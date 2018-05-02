@@ -1,7 +1,9 @@
 const Database = require('./Database.js');
+let db = new Database();
+
 module.exports = class User extends Database {
+
   getUserById(id){
-    let db = new Database();
     let json = db.readJson();
     let found = false;
     for (const object in json) {
@@ -15,5 +17,13 @@ module.exports = class User extends Database {
     }
   }
 
-  
+  insertUser(object){
+    let json = db.readJson();
+    let jsonCount = Object.keys(json).length
+    let newObject = jsonCount + 1;
+    json[newObject] = object;
+    let str = JSON.stringify(json)
+    db.insert(str);
+  }
+
 }

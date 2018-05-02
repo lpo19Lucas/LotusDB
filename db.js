@@ -20,5 +20,5 @@ const User = require('./class/User.js');
 let db = new Database();
 let user = new User();
 
-user.getUserById(4);
-user.insertUser({"name": "Guilerme",  "age": 32}) 
+user.getUserById(7);
+//user.insertUser({"name": "Nathan",  "age": 52}) 
