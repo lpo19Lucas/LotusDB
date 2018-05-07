@@ -5,25 +5,14 @@ module.exports = class User extends Database {
 
   getUserById(id){
     let json = db.readJson();
-    let found = false;
-    for (const object in json) {
-      if (id == object) {
-        console.log(json[object]);
-        found = true;
-      }
+    if (json[id]) {
+      return json[id];
     }
-    if (found == false) {
-      console.log("Não existe um id " + id + " no Banco");
-    }
+    return false;
   }
 
-  insertUser(object){
-    let json = db.readJson();
-    let jsonCount = Object.keys(json).length
-    let newObject = jsonCount + 1;
-    json[newObject] = object;
-    let str = JSON.stringify(json)
-    db.insert(str);
+  insertUser(object) {    
+    db.insert(object);
   }
 
 }
