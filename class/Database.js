@@ -5,54 +5,37 @@ module.exports = class Database {
     this.url = url;
   }
 
-  cached(data) {
-    this.cache = data;
-    console.log(cache)
-  }
-
   openDb() {
     const fileContent = fs.readFileSync(this.url).toString('utf8');
+    const cache = {};
     if (!fileContent) {
-      this.cache = {};
+      return false;
     } else {
       this.cache = JSON.parse(fileContent);
     }  
   }
- 
-  readString() {
-    const content = fs.readFileSync('./db/var/db.json');
-    return content.toString('utf-8');
-  }
   
-  readJson() {
-    const json = JSON.parse(this.readString());
-    this.cache(json)
-    return json;
+  insert(object) {
+    let json = this.cache;
+    let newObject = Object.keys(json).length + 1;
+    json[newObject] = object;
+    this.cache = json;
   }
 
-  insert(object){
-    let json = this.readJson();
-    let newObject = Object.keys(json).length;
-    json[newObject] = object;
-    let str = JSON.stringify(json)
-    fs.writeFile('./db/var/db.json', str, (err) => {
+  commit() {
+    fs.writeFile(this.url, JSON.stringify(this.cache), (err) => {
       if (err){
-        return true;
-      }   
-      return false;
+        console.error(err);
+        return false;
+      }
+      return true;
     });
   }
 
-  
-
-/*  cache.prototype.getCache = function () {
-    return cache;
-  };
-
-  getCache(){
+  selectAll() {
     return this.cache
   }
-*/
+
 } 
 
 

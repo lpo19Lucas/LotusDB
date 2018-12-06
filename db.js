@@ -17,8 +17,23 @@ Criar outra func createUser(objeto) e retornara o objeto criado.
 
 const Database = require('./class/Database.js');
 const User = require('./class/User.js');
-let db = new Database();
-let user = new User();
 
-user.getUserById(7);
-//user.insertUser({"name": "Nathan",  "age": 52}) 
+let db = new Database("./db/var/db.json");
+
+db.openDb();
+
+let user = new User(db);
+
+//user.insertUser({"name": "Thila",  "age": 21})
+//console.log(db.select())
+
+//console.log(db.commit())
+
+
+//console.log(user.getUserById(6));
+//user.updateUserById(6, {"name": "Breno",  "age": 45})
+user.deleteUserById(5)
+db.commit()
+// console.log(db.selectAll())
+console.log(db.selectAll())
+// console.log(user.getUserById(9));

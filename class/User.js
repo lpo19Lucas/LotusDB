@@ -1,18 +1,24 @@
 const Database = require('./Database.js');
-let db = new Database();
 
-module.exports = class User extends Database {
+module.exports = class User {
 
-  getUserById(id){
-    let json = db.readJson();
-    if (json[id]) {
-      return json[id];
-    }
-    return false;
+  constructor(db) {
+    this.db = db;
+  }
+
+  getUserById(id) {   
+    return this.db.cache[id];    
   }
 
   insertUser(object) {    
-    db.insert(object);
+    this.db.insert(object);
   }
 
+  updateUserById(id, object) {
+    this.db.cache[id] = object;  
+  }
+
+  deleteUserById(id) {
+    delete this.db.cache[id];
+  }
 }

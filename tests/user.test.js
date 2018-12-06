@@ -4,13 +4,7 @@ let db = new Database();
 let user = new User();
 //console.log(user.getUserById(2))
 describe('should manage the database', () => {
-  it('should open de database and get the id', () => {
-    expect({
-      "name": "Rodrigo",
-      "age": 42
-    }).toBe({
-      "name": "Rodrigo",
-      "age": 42
-    });
+  test('should get the object by the id', () => {
+    expect(user.getUserById(3)).toBe({ name: 'Arthur', age: 42 });
   });
 })
